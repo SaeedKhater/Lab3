@@ -1,41 +1,47 @@
 package tr.edu.maltepe.OOP;
 
+import java.util.Vector;
+
 public class Library {
-
-    private int ID;
-    private String namebook;
-    private String Type;
-
-    public Library(int ID, String namebook){
-
-        this.ID=ID;
-        this.namebook=namebook;
-        this.Type=Type;
+    private Vector books;
+    public Library(){
+        books =new Vector();
+    }
+    public void addBook (Books abook){
+        books.add(abook);
     }
 
-    public Library() {
-
+    public void removeBook(Books rbook){
+        books.remove(rbook);
     }
 
-    public int getID(){
-        return ID;
-    }
-    public String getType(){
-        return Type;
-    }
-    public String getNamebook(){
-        String getNamebook = new String();
-        return getNamebook;
+    public void list_Books (){
+        for (int i=0; i< books.size();i++ ){
+            Books temp = (Books) books.get(i);
+            System.out.println(temp.getBookname());
+        }
     }
 
-    public String tookthisbook(String namebook, String Type, int id) {
-        return namebook+" "+namebook+" The student took programming book " ;
+    public void loanBook(Person person, Books book){
+        if (books.contains(book))
+        {
+            person.takeBook(book);
+            removeBook(book);
+            System.out.println(person.getName()+ " take the " +book.getBookname()+ " book");
+            System.out.println(" ");
+
+        }
+        else{
+            System.out.println(book.getBookname()+ " is not available in the library now.");
+            System.out.println(" ");
+        }
     }
-    public String returnittothelib(String namebook, String Type, int ID){
-        return namebook+" "+namebook+" The student return it back to the lib";
-    }
-    public String cannottakeit(String namebook, String Type, int id){
-        return namebook+" "+namebook+" Programming book isnt available in the lib";
+    public void give_Back_Book(Person person, Books Book){
+        person.loanbook(Book);
+        addBook(Book);
+        System.out.println( person.getName()+ " return the " + Book.getBookname()+" book to the library.");
+        System.out.println(" ");
     }
 }
+
 
